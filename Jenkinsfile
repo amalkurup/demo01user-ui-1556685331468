@@ -3,7 +3,7 @@ def readProperties(){
 	def property = readYaml file: properties_file_path
 
     env.APP_NAME = property.APP_NAME
-    env.MS_NAME = property.MS_NAME
+    env.MS_NAME = 'master'
     env.BRANCH = property.BRANCH
     env.GIT_SOURCE_URL = property.GIT_SOURCE_URL
     env.GIT_CREDENTIALS = property.GIT_CREDENTIALS
