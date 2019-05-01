@@ -101,7 +101,7 @@ node{
        checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
        env.WORKSPACE = "${workspace}"
    }
-  
+}
    node ('jenkins-pipeline'){
        container ('chrome'){
             stage('Initial Setup'){
