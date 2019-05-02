@@ -61,7 +61,7 @@ def buildApp(projectName,msName){
 	          if(!bcExists){
 	    	        openshift.newApp("${GIT_SOURCE_URL}","--strategy=docker")
                 def rm = openshift.selector("dc", msName).rollout()
-                  sh 'sleep 120'
+                  sh 'sleep 360'
                /* timeout(15) { 
                   openshift.selector("dc", msName).related('pods').untilEach(1) {
                     return (it.object().status.phase == "Running")
