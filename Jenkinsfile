@@ -65,8 +65,8 @@ def buildApp(projectName,msName){
                /* timeout(15) { 
                   openshift.selector("dc", msName).related('pods').untilEach(1) {
                     return (it.object().status.phase == "Running")
-                  }*/
-                }  
+                  }
+                }  */
 	          }
             else {
                 openshift.startBuild(msName,"--wait")  
