@@ -105,7 +105,8 @@ node{
    node ('jenkins-pipeline'){
        container ('chrome'){
             stage('Initial Setup'){
-                sh 'cd "${WORKSPACE}"'
+                  checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
+                //sh 'cd "${WORKSPACE}"'
                 sh 'npm install'
             }
    
