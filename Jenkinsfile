@@ -110,13 +110,13 @@ node{
                 sh 'npm install'
             }
    
-            if(env.UNIT_TESTING == 'True'){
+        /*    if(env.UNIT_TESTING == 'True'){
                 stage('Unit Testing'){   
                      checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
                   //  sh 'cd "${WORKSPACE}"'
-                    sh ' $(npm bin)/ng test -- --no-watch --no-progress --browsers Chrome_no_sandbox'
+                  //  sh ' $(npm bin)/ng test -- --no-watch --no-progress --browsers Chrome_no_sandbox'
    	            }
-            }
+            }*/
   
             if(env.CODE_COVERAGE == 'True'){
                 stage('Code Coverage'){	
