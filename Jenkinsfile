@@ -105,27 +105,31 @@ node{
    node ('jenkins-pipeline'){
        container ('chrome'){
             stage('Initial Setup'){
-                sh 'cd "${WORKSPACE}"'
+                checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
+              //  sh 'cd "${WORKSPACE}"'
                 sh 'npm install'
             }
    
             if(env.UNIT_TESTING == 'True'){
                 stage('Unit Testing'){   
-                    sh 'cd "${WORKSPACE}"'
+                    checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
+                 //   sh 'cd "${WORKSPACE}"'
                     sh ' $(npm bin)/ng test -- --no-watch --no-progress --browsers Chrome_no_sandbox'
    	            }
             }
   
             if(env.CODE_COVERAGE == 'True'){
                 stage('Code Coverage'){	
-                    sh 'cd "${WORKSPACE}"'
+                //    sh 'cd "${WORKSPACE}"'
+                    checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
 	                sh ' $(npm bin)/ng test -- --no-watch --no-progress --code-coverage --browsers Chrome_no_sandbox'
    	            }
             }
    
             if(env.CODE_QUALITY == 'True'){
                 stage('Code Quality Analysis'){ 
-                    sh 'cd "${WORKSPACE}"'
+                    checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
+                   // sh 'cd "${WORKSPACE}"'
                     sh 'npm run lint'
                 }
             }
