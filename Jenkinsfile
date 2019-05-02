@@ -118,13 +118,13 @@ node{
    	     //       }
            // }
   
-            if(env.CODE_COVERAGE == 'True'){
-                stage('Code Coverage'){	
-                      checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
+       //     if(env.CODE_COVERAGE == 'True'){
+       //         stage('Code Coverage'){	
+       //               checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
                 //    sh 'cd "${WORKSPACE}"'
-                    sh ' $(npm bin)/ng test -- --no-watch --no-progress --code-coverage --browsers Chrome_no_sandbox'
-   	            }
-            }
+       //             sh ' $(npm bin)/ng test -- --no-watch --no-progress --code-coverage --browsers Chrome_no_sandbox'
+   	    //        }
+       //     }
    
             if(env.CODE_QUALITY == 'True'){
                 stage('Code Quality Analysis'){ 
