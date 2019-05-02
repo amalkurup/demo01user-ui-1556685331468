@@ -90,8 +90,8 @@ podTemplate(cloud: 'openshift',
 				containerTemplate(command: '', image: 'selenium/standalone-chrome:3.14', name: 'selenium', ports: [portMapping(containerPort: 4444)], ttyEnabled: false,workingDir:'/var/lib/jenkins')],
 			label: 'jenkins-pipeline', 
 			name: 'jenkins-pipeline', 
-			serviceAccount: 'jenkins'//, 
-		//	volumes: [persistentVolumeClaim(claimName: 'jenkins', mountPath: '/var/lib/jenkins', readOnly: false)] 
+			serviceAccount: 'jenkins', 
+			volumes: [persistentVolumeClaim(claimName: 'jenkins', mountPath: '/var/lib/jenkins', readOnly: false)] 
 			){
 node{
    def NODEJS_HOME = tool "NODE_PATH"
@@ -105,31 +105,29 @@ node{
    node ('jenkins-pipeline'){
        container ('chrome'){
             stage('Initial Setup'){
-                checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
-                sh 'cd sample-angular-app'
+                sh 'cd "${WORKSPACE}"'
                 sh 'npm install'
             }
    
             if(env.UNIT_TESTING == 'True'){
                 stage('Unit Testing'){   
-                    checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
-                 //   sh 'cd "${WORKSPACE}"'
+                   
+                    sh 'cd "${WORKSPACE}"'
                     sh ' $(npm bin)/ng test -- --no-watch --no-progress --browsers Chrome_no_sandbox'
    	            }
             }
   
             if(env.CODE_COVERAGE == 'True'){
                 stage('Code Coverage'){	
-                //    sh 'cd "${WORKSPACE}"'
-                    checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
-	                sh ' $(npm bin)/ng test -- --no-watch --no-progress --code-coverage --browsers Chrome_no_sandbox'
+                    sh 'cd "${WORKSPACE}"'
+                    sh ' $(npm bin)/ng test -- --no-watch --no-progress --code-coverage --browsers Chrome_no_sandbox'
    	            }
             }
    
             if(env.CODE_QUALITY == 'True'){
                 stage('Code Quality Analysis'){ 
-                    checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
-                   // sh 'cd "${WORKSPACE}"'
+                   
+                    sh 'cd "${WORKSPACE}"'
                     sh 'npm run lint'
                 }
             }
