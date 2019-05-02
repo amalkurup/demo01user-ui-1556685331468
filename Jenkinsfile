@@ -90,8 +90,8 @@ podTemplate(cloud: 'openshift',
 				containerTemplate(command: '', image: 'selenium/standalone-chrome:3.14', name: 'selenium', ports: [portMapping(containerPort: 4444)], ttyEnabled: false,workingDir:'/var/lib/jenkins')],
 			label: 'jenkins-pipeline', 
 			name: 'jenkins-pipeline', 
-			serviceAccount: 'jenkins', 
-			volumes: [persistentVolumeClaim(claimName: 'jenkins', mountPath: '/var/lib/jenkins', readOnly: false)] 
+			serviceAccount: 'jenkins'//, 
+		//	volumes: [persistentVolumeClaim(claimName: 'jenkins', mountPath: '/var/lib/jenkins', readOnly: false)] 
 			){
 node{
    def NODEJS_HOME = tool "NODE_PATH"
