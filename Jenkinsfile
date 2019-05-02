@@ -141,9 +141,9 @@ node{
         buildApp("${APP_NAME}-dev", "${MS_NAME}")
    }
 
-   stage('Dev - Deploy Application'){
+ /*  stage('Dev - Deploy Application'){
         devDeployment("${APP_NAME}-dev", "${MS_NAME}")
-   }
+   }*/
    
    stage('Tagging Image for Testing'){
         openshiftTag(namespace: '$APP_NAME-dev', srcStream: '$MS_NAME', srcTag: 'latest', destStream: '$MS_NAME', destTag: 'test')
