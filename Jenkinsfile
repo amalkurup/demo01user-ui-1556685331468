@@ -106,7 +106,7 @@ node{
        container ('chrome'){
             stage('Initial Setup'){
                 checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
-                sh 'cd "${WORKSPACE}"'
+                sh 'cd sample-angular-app'
                 sh 'npm install'
             }
    
